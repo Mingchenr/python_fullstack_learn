@@ -22,3 +22,55 @@ Python 3.10+ |  requests |  lxml |  pathlib  | Git |
 pip install requests lxml
 # 运行爬虫
 python day4_crawl_rename.py
+
+
+
+"""
+核心代码复盘
+"""
+# 1.装饰器
+#带参数的权限装饰器
+def permission_required(role = "admin"):
+    def decorator(func):
+        def wrapper(*args,**kwargs):
+            user_role = input("请输入角色：")
+
+            if user_role != role :
+                print("无权限")
+                return
+            return  func(*args,**kwargs)
+        return wrapper
+    return decorator
+
+@ permission_required(role="admin")
+
+def admin_op():
+    print("管理员操作执行")
+
+admin_op()
+
+
+
+#requests POST请求（DRF接口基础）
+import requests
+import json
+
+url = "https://httpbin.org/post"
+data = {"name":"王康","age":33}
+headers = {"Content-type":"application/json"}
+
+response = requests.post(url,json=data,headers=headers)
+print(json.dumps(response.json()["json"],ensure_ascii=False,indent = 2))
+
+#Django项目创建核心命令
+
+django-admin startproject myproject
+cd myproject
+python manage.py ruserver
+
+#Vue项目创建核心命令
+
+vue create muvue
+cd myvue
+npm run serve
+
