@@ -85,14 +85,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
+# 语言编码 - 设置为简体中文,可以用 'zh-cn'，但 'zh-hans' 是更标准的国际代码
 LANGUAGE_CODE = 'zh-hans'
 
+# 时区 - 设置为中国时区,中国标准时间(CST)，覆盖北京/上海等所有中国地区
 TIME_ZONE = 'Asia/Shanghai'
+# 确保使用时区感知的时间（生产环境推荐）
+USE_TZ = True
 
+# 启用国际化（如果需要）
 USE_I18N = True
 
-USE_TZ = True
+# 启用本地化（如果需要）
+USE_L10N = True
+
 
 STATIC_URL = 'static/'
 
