@@ -1,5 +1,0 @@
-import os
-from django.core.asgi import get_adgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_learn.settings')
-application = get_asgi_application() 
