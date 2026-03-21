@@ -1,0 +1,59 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <tetle>用户列表</tetle>
+    <style>
+        table{width:80%;margin:20px auto;border-collapse:collapse;}
+        th,td{border:1px soild #ccc; padding:10px; text-align:center;}
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">用户列表</h2>
+    <table>
+        <tr>
+            <th>用户名:</th>
+            <th>年龄:</th>
+            <th>创建时间:</th>
+            <th>操作:</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.age|default:"未填写"}}</td>
+            <td>{{User.create_time|date:"Y-m-d H-i"}}</td>
+            <td><a href="{% url 'user_info' name=user.name %"></a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">暂无用户数据</td>
+            {% endfor %}
+        </tr>
+    </table>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
