@@ -1,0 +1,41 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+    <meta charset="UTF-8>
+    <title>用户信息</title>
+    <style>
+        .info-box{width:60%;margin:20px auto; padding:20px;border:1px solid #ccc ; broder-radius:8px;}
+    </style>
+</head> 
+
+<body>
+<div class="info-box">
+    <h2>用户信息</h2>
+    <p><strong>用户名：</strong>{{user.name}}</p>
+    <p><strong>年龄:</strong>{{age|default:user.age|defult:"未填写"}}</p>
+    <p><strong>创建时间：</strong>{{user.create_time|date:"Y-m-d H:i"}}</p>
+    <a href="{% nrl 'user_list'%}">返回用户列表</a>
+</div>
+</dbody>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
