@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{machine.machine_name}} - 物料详情</title>
+    <style>
+        body {font-family: Arial,sans-serif;margin:20px;}
+        .detail{max-width:600px;margin:0 auto;}
+        .item{margin:10px 0;}
+        .label{font-weight:bold; display:inline-block;width :100px;}
+        img {max-width:300px ;matgin-top :10px;}
+        .back{margin-top:20px;}
+    </style>
+</head>
+<body>
+    <div class="detail">
+        <h1>{{machine.material_code}}-{{machine.machine_name}}</h1>
+        <div class="item"><span class="label">图号:</span>{{machine.drawing_no}}</div>
+        <div class="item"><span class="label">价格:</span>{{machine.selling_price|default:"暂无"}}</div>
+        <div class="item"><span class="label">所属机型:</span>{{machine.model_type}}</div>
+        <div class="item"><span class="label">创建时间:</span>{{machine.created_at|date:"Y-m-d H:i"}}</div>
+        <div class="item">
+            <span class="label">零件图片:</span>
+            {% if machine.image %}
+                <img src="{{machine.image.url}}" alt="{{machine.machine_name}}">
+            {% else %}
+                暂无图片
+            {% endif %}
+        </div>
+
+        <div class="back">
+            <a href="{% url 'machine:machine_list' %} ">返回列表</a>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

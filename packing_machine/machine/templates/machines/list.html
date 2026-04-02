@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>气动打包机物料清单</title>
+    <style>
+        body{font-family:Arial,sans-serif;margin:20px;}
+        table{border-collapse : collapse;width:100%;margin:20px 0 ;}
+        th,td{border:1px solid #ccc;padding:8px;text-align:center;}
+        th{background-color:#f2f2f2;}
+        .btn{padding:6px 12px; text-decoration :none; color:#fff;border-radius:4px;}
+        .btn-add{background-color:#28a745;}
+        .btn-detail{background-color:#007bff;}
+        .btn-delete{background-color:#dc3545;}
+        .filter{margin:10px 0;display: flex;align-items: center;gap: 10px;}
+        .messages{padding : 10px;margin:10px 0;border-radius:4px;}
+        .success{background-color:#d4edda;color:#155724;}
+        .error{background-color:#f8d7da;color:#721c24;}
+    </style>
+</head>
+<body>
+
+    <h1>气动打包机BOM物料清单</h1>
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="messages {{msg.tags}}">{{msg}}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!--机型筛选 + 添加按钮 -->
+    <div class="filter">
+        <!-- 修复1：按钮样式类改为 btn-add，恢复绿色背景 -->
+        <a href="{% url 'machine:machine_add' %}" class="btn btn-add">添加物料</a>
+
+        <!-- 修复2：添加筛选表单，实现机型筛选功能 -->
+        <form method="GET" style="display: flex;align-items: center;gap: 5px;">
+            <label>机型筛选：</label>
+            <select name="model_type" onchange="this.form.submit()">
+                <option value="">全部机型</option>
+                <option value="XQD-19气动打包机" {% if current_model == 'XQD-19气动打包机' %}selected{% endif %}>XQD-19气动打包机</option>
+                <option value="XQD-25气动打包机" {% if current_model == 'XQD-25气动打包机' %}selected{% endif %}>XQD-25气动打包机</option>
+                <option value="GSC32气动打包机" {% if current_model == 'GSC32气动打包机' %}selected{% endif %}>GSC32气动打包机</option>
+                <option value="GSC32气动卡扣机" {% if current_model == 'GSC32气动卡扣机' %}selected{% endif %}>GSC32气动卡扣机</option>
+                <option value="KCL气动打包机" {% if current_model == 'KCL气动打包机' %}selected{% endif %}>KCL气动打包机</option>
+                <option value="KCL气动卡扣机" {% if current_model == 'KCL气动卡扣机' %}selected{% endif %}>KCL气动卡扣机</option>
+                <option value="FTL32气动打包机" {% if current_model == 'FTL32气动打包机' %}selected{% endif %}>FTL32气动打包机</option>
+                <option value="FTL32气动卡扣机" {% if current_model == 'FTL32气动卡扣机' %}selected{% endif %}>FTL32气动卡扣机</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- 物料表格 -->
+    <table>
+        <thead>
+            <tr>
+                <th>物料编码</th>
+                <th>图号</th>
+                <th>零件名称</th>
+                <th>价格(元)</th>
+                <th>所属机型</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 修复3：循环变量名改为 machines（与视图上下文一致） -->
+            {% for machine in machines %}
+            <tr>
+                <td>{{machine.material_code}}</td>
+                <td>{{machine.drawing_no}}</td>
+                <td>{{machine.machine_name}}</td>
+                <td>{{machine.selling_price |default:"-"}}</td>
+                <td>{{machine.model_type}}</td>
+                <td>
+                    <a href="{% url 'machine:machine_detail' machine.material_code %}" class="btn btn-detail">详情 </a>
+                    <a href="{% url 'machine:machine_delete' machine.material_code %}" class="btn btn-delete" onclick="return confirm('确定删除吗？')">删除</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <!-- 修复4：提示文字添加添加物料跳转链接 -->
+                <td colspan="6">暂无物料数据，请点击<a href="{% url 'machine:machine_add' %}" style="color:#28a745;">⌈添加物料⌋</a>按钮添加</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
